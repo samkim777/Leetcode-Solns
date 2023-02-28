@@ -31,7 +31,7 @@ var reverseList = function(head) {
         // Update our node to the next node
         node = next;
     }
-    // Return the new head, which was our tail
+     // Return the new head, which was our tail
     return prev;
 
 };
