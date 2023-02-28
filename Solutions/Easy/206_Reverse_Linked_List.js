@@ -14,7 +14,7 @@ var reverseList = function(head) {
     let node = head;
     // Initialize references to previous and next
     // These are equivalent to arrayList[i - 1] for prev
-    //                      and arrayList[i + 1] for next
+    //                       and arrayList[i + 1] for next
     let next = null;
     let prev = null;
 
