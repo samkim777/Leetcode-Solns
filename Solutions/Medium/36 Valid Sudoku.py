@@ -11,6 +11,7 @@ class Solution:
                     # Check if duplicate in col/row or 3x3 square
                 if (board[r][c] in cols[c] or
                     board[r][c] in rows[r] or
+                    # Check if key '1' has this board value, then '2'
                     board[r][c] in squares[(r//3,c//3)]): # Key at r/3,c/3
                     return False
                 cols[c].add(board[r][c])
