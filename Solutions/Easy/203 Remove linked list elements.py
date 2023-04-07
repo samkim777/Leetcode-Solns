@@ -9,6 +9,9 @@ class Solution:
                                       # At our head
         prev,cur = dummy, head
 
+        # We do not need to get rid of pointers in the original head
+        # linked list because we are simply adding iteratively to dummy
+
         while cur:
             nxt = cur.next
             if cur.val == val:
