@@ -6,6 +6,7 @@
 
 class Solution:
     def hasCycle(self, head: Optional[ListNode]) -> bool:
+        # Use linked list's value!
         cur = head
         while(cur):
             if(cur.val is None):
