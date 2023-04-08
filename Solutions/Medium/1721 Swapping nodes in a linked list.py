@@ -22,3 +22,23 @@ class Solution:
             temp.next = ListNode()
             temp = temp.next
         return cur.next   
+
+class Solution:
+    def swapNodes(self, head: Optional[ListNode], k: int) -> Optional[ListNode]:
+        # The list is 1 indexed
+        cur = head
+        for _ in range(k - 1):
+            cur = cur.next
+
+        ## *****    
+        a = cur # Middle pt -> Linked list
+        b = head
+
+        ## Such a 300 iq move wtf
+        while cur.next: # One indexed
+            b = b.next
+            cur = cur.next
+
+        a.val, b.val = b.val, a.val
+
+        return head           
