@@ -5,7 +5,7 @@ class Solution:
 
         for j in nums:
             numdict[j] += 1 # {'1':3, '2':2, '3':1}
-
+        ## Sort dictionary keys in descending values    
         dictSet = sorted(numdict, key = numdict.get, reverse = True) # Sort in descending order
   
         for t in range(k):
