@@ -23,16 +23,15 @@ class Solution:
                     colSet.add(cur)           
 
         # Check 3x3 board
-        for row in range(0, 9, 3):
-            for col in range(0, 9, 3):
+        for row in range(0,9,3):
+            for col in range(0,9,3):
                 gridSet = set()
                 for r in range(row, row + 3):
                     for c in range(col, col + 3):
-                        cur = board[r][c]
-                        if cur != ".":
-                            if cur in gridSet:
-                                return False
-                            gridSet.add(cur)
+                        if board[r][c] in gridSet and board[r][c] != ".":
+                            return False
+                        else:
+                            gridSet.add(board[r][c])   
 
         return True
               
