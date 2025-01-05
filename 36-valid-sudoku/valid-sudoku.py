@@ -3,6 +3,7 @@ class Solution:
         # Each row must contain 1-9, no repetition
         # Each column must contain 1-9, no repetition
         # Each of the 3x3 boxes must contain 1-9 without repetition
+        # This solution is O(1) time and space complexity
         rows,cols = len(board[0]), len(board)
         rowSet, colSet = set(), set()
         for row in range(9):
