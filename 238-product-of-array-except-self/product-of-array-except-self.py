@@ -8,12 +8,10 @@ class Solution:
         for i in range(1, numLen):
             prefix[i] = prefix[i - 1] * nums[i - 1]
 
-        # postfix
-        for j in range(numLen -2, -1 , -1):
-            postfix[j] = postfix[j + 1] * nums[j + 1]
-        
-        results = [1] * numLen
-        # results    
-        for k in range(numLen):
-            results[k] = postfix[k] * prefix[k]
-        return results    
+        # do it in-place
+        postfix = 1
+        for k in range(numLen - 1, -1 ,-1):
+            prefix[k] *= postfix
+            postfix *= nums[k]
+
+        return prefix    
