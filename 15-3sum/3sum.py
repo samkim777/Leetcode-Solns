@@ -1,9 +1,13 @@
 class Solution:
     def threeSum(self, nums: List[int]) -> List[List[int]]:
+        # O(nlogn) time, O(n) space
+        # what is this crack head problem
+        # idea is to have one fixed and we iterate with left and right
+        # And skip any duplicates
         nums.sort()
         res = []
         for i in range(len(nums)):
-            if i > 0 and nums[i] == nums[i-1]:
+            if i > 0 and nums[i] == nums[i-1]: # avoid duplicates
                 continue
             l,r = i + 1, len(nums) - 1
             while l < r:    
@@ -12,7 +16,7 @@ class Solution:
                     res.append([nums[i], nums[l], nums[r]])
                     r -= 1
                     l += 1
-                    while l < r and nums[l] == nums[l - 1]:
+                    while l < r and nums[l] == nums[l - 1]: # [1(l-1),1(l),2,3,4]
                         l += 1
                     while l < r and nums[r] == nums[r + 1]:
                         r -= 1        
@@ -21,4 +25,3 @@ class Solution:
                 else:
                     l += 1
         return res              
-        #[ -4, -1, -1, 0 , 1, 2]
