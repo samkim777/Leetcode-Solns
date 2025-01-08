@@ -2,7 +2,7 @@ class Solution:
     def threeSum(self, nums: List[int]) -> List[List[int]]:
         res = []
         nums.sort()
-        # -4 -1 -1 0 1 2
+        # Even reviewing it the next day this still a crackhead problem
         for i in range(len(nums)):
             if i > 0 and nums[i] == nums[i - 1]:
                 continue
