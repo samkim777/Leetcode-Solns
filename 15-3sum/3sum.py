@@ -1,27 +1,25 @@
 class Solution:
     def threeSum(self, nums: List[int]) -> List[List[int]]:
-        # O(nlogn) time, O(n) space
-        # what is this crack head problem
-        # idea is to have one fixed and we iterate with left and right
-        # And skip any duplicates
-        nums.sort()
         res = []
+        nums.sort()
+        # -4 -1 -1 0 1 2
         for i in range(len(nums)):
-            if i > 0 and nums[i] == nums[i-1]: # avoid duplicates
+            if i > 0 and nums[i] == nums[i - 1]:
                 continue
-            l,r = i + 1, len(nums) - 1
-            while l < r:    
-                cur = nums[i] + nums[l] + nums[r]
+
+            l, r = i+1, len(nums) - 1
+            while l < r:  
+                cur = nums[i] + nums[l] + nums[r]    
                 if cur == 0:
                     res.append([nums[i], nums[l], nums[r]])
-                    r -= 1
                     l += 1
-                    while l < r and nums[l] == nums[l - 1]: # [1(l-1),1(l),2,3,4]
+                    r -= 1
+                    while l < r and nums[l] == nums[l - 1]:
                         l += 1
                     while l < r and nums[r] == nums[r + 1]:
-                        r -= 1        
-                elif cur > 0: # too big
+                        r -= 1
+                elif cur > 0:
                     r -= 1
-                else:
-                    l += 1
-        return res              
+                else: 
+                    l += 1            
+        return res                
