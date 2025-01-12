@@ -1,21 +1,20 @@
 class Solution:
     def generateParenthesis(self, n: int) -> List[str]:
-        # only add closed parentheses if # closed < # open
-        # only add open parentheses if # open < n
+        # add Open if # open < n
+        # add closed if # closed < open
         # valid IIF open == closed == n
+        # Time: O(4n/sqrt(n)), space: O(n)
         res = []
         def backtrack(openN, closedN, sPath):
-            # Base case
+            # Base
             if openN == closedN == n:
                 res.append(sPath)
-
-            # If we can add more open brackets, backtrack
+                return
+            # Open < n
             if openN < n:
-                backtrack(openN + 1, closedN, sPath+"(")
-            
-            # else if we can only add closed brackets, backtrack
+                backtrack(openN + 1, closedN, sPath+"(")    
+             # closed < open
             if closedN < openN:
                 backtrack(openN, closedN + 1, sPath+")")
-                
         backtrack(0,0,"")
-        return res
+        return res 
