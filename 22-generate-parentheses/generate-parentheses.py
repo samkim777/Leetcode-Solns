@@ -9,7 +9,6 @@ class Solution:
             # Base
             if openN == closedN == n:
                 res.append(sPath)
-                return
             # Open < n
             if openN < n:
                 backtrack(openN + 1, closedN, sPath+"(")    
