@@ -1,14 +1,17 @@
 class Solution:
     def carFleet(self, target: int, position: List[int], speed: List[int]) -> int:
-        # A car fleet travels at the minimum speed of any car in the fleet
+        # Depending on the position of the car, the time it takes for a car
+        # at position i will determine whether to form a fleet or not
         time = [(target - position[i]) / speed[i] for i in range(len(speed))]
-        cars = sorted(zip(position, time), reverse = True) # sort using position
-        # first element in time will be the shortest time
+        # Sort in position, time
+        stack = sorted(zip(position,time), reverse = True) # sort according to position, closest to target
         fleet = 0
-        cur_time = 0
-        for _, t in cars:
-            if t > cur_time: # Not a fleet
+        time = 0
+        for p,t in stack:
+            if time < t:
                 fleet += 1
-                cur_time = t
-        return fleet        
-            
+                time = t
+        return fleet            
+
+
+
