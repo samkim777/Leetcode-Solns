@@ -1,16 +1,15 @@
 class Solution:
     def minEatingSpeed(self, piles: List[int], h: int) -> int:
-        # if h = len(piles), that means k will be the maximum value
-        # within the pile
-        # Using this intuition, if we create an array from
-        # 1 - max(piles), and use binary search to find the number
-        # That divides eating speed into correct hours
-
+        # Intuition is that we know that if h = length of array
+        # Then the minimum rate Koko should be eating these naners is 
+        # the maximum value of the array
+        # Hence, we can perform binary search on an array from 1 to this maximum
+        # and find the maximum rate
+        # O(logn) + O(n) thus O(n) time, O(1) space
         l,r = 1, max(piles)
         res = r
         while l <= r:
-            k = (l + r) // 2
-            # We'll need to iterate this found value and divide piles
+            k = (l+r) // 2
             hours = 0
             for p in piles:
                 hours += math.ceil(p / k)
@@ -18,5 +17,5 @@ class Solution:
                 res = min(k,res)
                 r = k - 1
             else:
-                l = k + 1
-        return res        
+                l = k + 1    
+        return res
