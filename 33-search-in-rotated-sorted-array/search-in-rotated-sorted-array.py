@@ -5,14 +5,14 @@ class Solution:
             mid = (l+r) // 2
             if nums[mid] == target:
                 return mid
-            if nums[mid] <= nums[r]: # Right sorted
+            if nums[mid] <= nums[r]:
                     if nums[mid] < target <= nums[r]:
                         l = mid + 1
                     else:
                         r = mid - 1    
-            else: # Left sorted
+            else:
                 if nums[l] <= target < nums[mid]:
                     r = mid - 1
                 else:
                     l = mid + 1
-        return -1 
+        return -1             
