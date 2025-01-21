@@ -1,4 +1,7 @@
 class TimeMap:
+    # Key is to have key: [value,timestamp] relation
+    # And for each key, run binary search to find closest to target time
+    # What is this
 
     def __init__(self):
         self.storage = {}
