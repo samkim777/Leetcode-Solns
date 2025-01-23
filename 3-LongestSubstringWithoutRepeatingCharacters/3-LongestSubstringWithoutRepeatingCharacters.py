@@ -1,9 +1,7 @@
 class Solution:
     def lengthOfLongestSubstring(self, s: str) -> int:
-        # We could use a sliding window
-        # while this current substring does not have repeating chars
-        # get the length of the window, else start our window again
-        # Loop through once, so O(n) time, constant space
+        # O(n) time and space complexity
+        # Empty substring is considered a valid substring :shrug:
         res = 0
         l,r = 0,0
         seen = set()
