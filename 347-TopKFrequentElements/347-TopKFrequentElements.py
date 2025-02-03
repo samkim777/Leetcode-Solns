@@ -12,5 +12,6 @@ class Solution:
             if len(heap) < k:
                 heapq.heappush(heap, (freq,num))
             else:
-                heapq.heappushpop(heap, (freq,num))
+                heapq.heappush(heap, (freq,num))
+                heapq.heappop(heap)
         return [n[1] for n in heap]
