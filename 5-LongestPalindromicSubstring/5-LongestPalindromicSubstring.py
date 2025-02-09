@@ -1,7 +1,5 @@
 class Solution:
     def longestPalindrome(self, s: str) -> str:
-        # O(n^2) time complexity because we loop through the array twice
-        # O(1) space
         if len(s) == 1:
             return s
         longest = s[0]
