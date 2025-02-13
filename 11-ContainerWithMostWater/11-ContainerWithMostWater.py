@@ -1,8 +1,7 @@
 class Solution:
     def maxArea(self, height: List[int]) -> int:
-        # Go through everything, keep track of maximum area?
-        # if greater than or equal, increment/decrement the other
-        # O(n) time, O(1) space
+        # Keeping track of max area
+        # iterate the smaller height
         l, r = 0, len(height) - 1
         maxArea = 0
         while l < r:
