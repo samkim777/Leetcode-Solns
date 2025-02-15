@@ -3,7 +3,6 @@ class Solution:
         if len(s) == 1:
             return s
         longest = s[0]
-        # At least two items
         for n in range(len(s) - 1):
             # even
             l,r = n,n+1
