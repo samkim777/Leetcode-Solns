@@ -1,7 +1,7 @@
 class Solution:
     def maxArea(self, height: List[int]) -> int:
-        # Keeping track of max area
-        # iterate the smaller height
+        # left and right pointer
+        # we'll eventually calculate all the maximum areas
         l, r = 0, len(height) - 1
         maxArea = 0
         while l < r:
