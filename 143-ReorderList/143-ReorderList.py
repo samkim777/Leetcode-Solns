@@ -1,34 +1,39 @@
-
+# Definition for singly-linked list.
+# class ListNode:
+#     def __init__(self, val=0, next=None):
+#         self.val = val
+#         self.next = next
 class Solution:
-    def reorderList(self, head):
-        if not head or not head.next:
-            return
-
-        # Step 1: Find the middle of the list
-        slow, fast = head, head
+    def reorderList(self, head: Optional[ListNode]) -> None:
+        """
+        Do not return anything, modify head in-place instead.
+        """
+        
+        # Find the middle of the LL
+        # Rotate from mid to end
+        # Merge the two linked lists
+        slow,fast = head,head
         while fast and fast.next:
             slow = slow.next
             fast = fast.next.next
+        
+        # We've found middle, and the middle.next is beginnign of 2nd half
+        second = slow.next
+        slow.next = None # split
 
-        # Step 2: Reverse the second half of the list
-        prev, curr = None, slow
-        while curr:
-            next_temp = curr.next
-            curr.next = prev
-            prev = curr
-            curr = next_temp
-
-        # Step 3: Merge the two halves
+        # Reverse the second half of the linked list
+        prev = None
+        while second:
+            cur = second.next
+            second.next = prev
+            prev = second
+            second = cur
+        
         first, second = head, prev
-        while second.next:
-            # Save next pointers
-            tmp1 = first.next
-            tmp2 = second.next
-            
-            # Reorder nodes
+        while second:
+            tmp1, tmp2 = first.next, second.next
             first.next = second
             second.next = tmp1
+            # Now iterate both
+            first, second = tmp1, tmp2
             
-            # Move pointers forward
-            first = tmp1
-            second = tmp2
