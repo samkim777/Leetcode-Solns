@@ -9,12 +9,10 @@ class Solution:
         def dfs(root, max_sofar):
             if not root:
                 return 0
-            
             total = 0
-
             if root.val >= max_sofar:
-                total += 1
                 max_sofar = root.val
+                total += 1
             total += dfs(root.left, max_sofar)
             total += dfs(root.right, max_sofar)
             return total
