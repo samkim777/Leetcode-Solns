@@ -1,4 +1,4 @@
-// Last updated: 3/14/2025, 9:38:34 PM
+// Last updated: 3/14/2025, 9:38:56 PM
 # Definition for a binary tree node.
 # class TreeNode:
 #     def __init__(self, val=0, left=None, right=None):
@@ -16,4 +16,4 @@ class Solution:
         
         if not root:
             return False
-        return isSameTree(root,subRoot) or self.isSubtree(root.left, subRoot) or self.isSubtree(root.right, subRoot)
+        return isSameTree(root,subRoot) or self.isSubtree(root.right, subRoot) or self.isSubtree(root.left, subRoot)
