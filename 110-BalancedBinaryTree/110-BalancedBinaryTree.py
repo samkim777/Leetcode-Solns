@@ -1,3 +1,4 @@
+// Last updated: 3/15/2025, 9:58:29 PM
 # Definition for a binary tree node.
 # class TreeNode:
 #     def __init__(self, val=0, left=None, right=None):
@@ -9,13 +10,12 @@ class Solution:
         def dfs(root):
             if not root:
                 return 0
-            left = dfs(root.left)
-            right = dfs(root.right)
+            left_h = dfs(root.left)
+            right_h = dfs(root.right)
 
-            if abs(left - right) > 1:
+            if abs(left_h - right_h) > 1:
                 return -1
-            if left == -1 or right == -1: # case for height difference
+            if left_h == -1 or right_h == -1:
                 return -1
-
-            return max(left, right) + 1
+            return max(left_h, right_h) + 1
         return dfs(root) != -1
