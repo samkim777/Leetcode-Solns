@@ -1,3 +1,4 @@
+// Last updated: 3/17/2025, 10:26:21 PM
 # Definition for a binary tree node.
 # class TreeNode:
 #     def __init__(self, val=0, left=None, right=None):
@@ -6,18 +7,13 @@
 #         self.right = right
 class Solution:
     def diameterOfBinaryTree(self, root: Optional[TreeNode]) -> int:
-        # Diameter is maximum length of left and right subtrees added
-        # Use dfs to recursively calcuate both left and right lengths
-        # return value:
-        # state: cur heights
         self.diameter = 0
         def dfs(root):
             if not root:
                 return 0
             left = dfs(root.left)
             right = dfs(root.right)
-            self.diameter = max(self.diameter, left+right)
-            return 1 + max(left,right)
+            self.diameter = max(self.diameter, left+ right)
+            return max(left,right) + 1
         dfs(root)
         return self.diameter
-        
