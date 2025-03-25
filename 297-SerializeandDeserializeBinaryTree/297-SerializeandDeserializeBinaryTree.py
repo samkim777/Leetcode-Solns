@@ -1,4 +1,4 @@
-# Last updated: 3/24/2025, 8:42:28 PM
+# Last updated: 3/24/2025, 8:48:37 PM
 # Definition for a binary tree node.
 # class TreeNode(object):
 #     def __init__(self, x):
@@ -15,16 +15,15 @@ class Codec:
         :rtype: str
         """
         res = []
-        def dfs(node):
-            if not node:
+        def dfs(root):
+            if not root:
                 res.append("N")
-                return
-            res.append(str(node.val))
-            dfs(node.left)
-            dfs(node.right)
+                return 
+            res.append(str(root.val))
+            dfs(root.left)
+            dfs(root.right)
         dfs(root)
         return ",".join(res)
-        
 
     def deserialize(self, data):
         """Decodes your encoded data to tree.
@@ -32,17 +31,19 @@ class Codec:
         :type data: str
         :rtype: TreeNode
         """
-        vals = data.split(",")
         self.i = 0
+        values = data.split(",") # array of node values
         def dfs():
-            if vals[self.i] == "N":
+            if values[self.i] == "N":
                 self.i += 1
                 return None
-            node = TreeNode(int(vals[self.i]))
-            self.i+=1
+            node = TreeNode(values[self.i]) # create node
+            self.i += 1
+            # construct left subtree
             node.left = dfs()
+            # construct right ubstree
             node.right = dfs()
-            return node
+            return node # Return node to keep adding shit to it
         return dfs()
         
 
