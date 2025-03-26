@@ -1,4 +1,4 @@
-# Last updated: 3/24/2025, 8:48:37 PM
+# Last updated: 3/25/2025, 11:20:51 PM
 # Definition for a binary tree node.
 # class TreeNode(object):
 #     def __init__(self, x):
@@ -14,16 +14,24 @@ class Codec:
         :type root: TreeNode
         :rtype: str
         """
+        # To serialize a tree: Take a tree and make it into a list,
+        # separated by commas
+        # in-order? pre-order? whichever is the one where you go 
+        # root left right
         res = []
         def dfs(root):
             if not root:
                 res.append("N")
-                return 
-            res.append(str(root.val))
+                return
+            res.append(str(root.val)) # What is root.val? int? obj?
+
             dfs(root.left)
             dfs(root.right)
+            return res # need to return results array
         dfs(root)
         return ",".join(res)
+        # So we end up like [1,2,3,4,5] etc
+        
 
     def deserialize(self, data):
         """Decodes your encoded data to tree.
@@ -31,21 +39,26 @@ class Codec:
         :type data: str
         :rtype: TreeNode
         """
-        self.i = 0
-        values = data.split(",") # array of node values
+        # To deserialize, we'll recursively go through the results array data
+        # constructed during serialize
+        # does the tree val need to be ints? yeah Node.val is an int
+        values = data.split(",")
+        self.index = 0
         def dfs():
-            if values[self.i] == "N":
-                self.i += 1
+            if values[self.index] == "N":
+                self.index += 1
                 return None
-            node = TreeNode(values[self.i]) # create node
-            self.i += 1
-            # construct left subtree
-            node.left = dfs()
-            # construct right ubstree
-            node.right = dfs()
-            return node # Return node to keep adding shit to it
+            # How do I progress from here?? I'm not handling left and right
+            # subtrees
+            # remember that our data is preorder
+            root = TreeNode(values[self.index])
+            self.index += 1
+            root.left = dfs()
+            root.right = dfs()
+            return root
         return dfs()
-        
+            
+
 
 # Your Codec object will be instantiated and called as such:
 # ser = Codec()
