@@ -1,4 +1,4 @@
-# Last updated: 4/2/2025, 10:54:49 PM
+# Last updated: 4/2/2025, 11:04:30 PM
 # Definition for a binary tree node.
 # class TreeNode:
 #     def __init__(self, val=0, left=None, right=None):
@@ -7,11 +7,12 @@
 #         self.right = right
 class Solution:
     def sumNumbers(self, root: Optional[TreeNode]) -> int:
-        def dfs(root, sum):
+        # path will be a string
+        def dfs(root, path):
             if not root:
                 return 0
-            sum += str(root.val)
-            if not root.left and not root.right:
-                return int(sum)
-            return dfs(root.left, sum) + dfs(root.right, sum)
+            path += str(root.val)
+            if not root.right and not root.left:
+                return int(path)
+            return dfs(root.left,path) + dfs(root.right, path)
         return dfs(root,"")
