@@ -1,4 +1,4 @@
-# Last updated: 4/6/2025, 11:49:20 PM
+# Last updated: 4/7/2025, 10:19:23 PM
 # Definition for a binary tree node.
 # class TreeNode:
 #     def __init__(self, val=0, left=None, right=None):
@@ -7,18 +7,17 @@
 #         self.right = right
 class Solution:
     def getMinimumDifference(self, root: Optional[TreeNode]) -> int:
-        # Dfs, find the min difference later
+        # use in-order: left, root, right to get values in ascending
+        # compare each pair to get min diff
         res = []
         def dfs(root):
             if not root:
                 return None
-            # In-order traversal
             dfs(root.left)
             res.append(root.val)
             dfs(root.right)
-        # res is sorted array
+        minDiff = float("inf")
         dfs(root)
-        min_diff = float("inf")
-        for i in range(1, len(res)):
-            min_diff = min(min_diff, abs(res[i] - res[i - 1]))
-        return min_diff
+        for i in range(1,len(res)):
+            minDiff = min(minDiff, abs(res[i]-res[i-1])) # index
+        return minDiff
