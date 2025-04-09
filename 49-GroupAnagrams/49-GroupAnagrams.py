@@ -1,3 +1,4 @@
+# Last updated: 4/8/2025, 9:53:28 PM
 class Solution:
     def groupAnagrams(self, strs: List[str]) -> List[List[str]]:
         # Create a dictionary where the key is array of ascii values
