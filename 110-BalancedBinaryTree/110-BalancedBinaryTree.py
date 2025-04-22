@@ -1,4 +1,4 @@
-// Last updated: 3/15/2025, 9:58:29 PM
+# Last updated: 4/21/2025, 10:18:43 PM
 # Definition for a binary tree node.
 # class TreeNode:
 #     def __init__(self, val=0, left=None, right=None):
@@ -7,15 +7,17 @@
 #         self.right = right
 class Solution:
     def isBalanced(self, root: Optional[TreeNode]) -> bool:
+        # calculate the left and right subtree heights
+        # if differ by greater than 1, return False
+        # O(n) time, O(h) avg space, O(n) worst space
         def dfs(root):
             if not root:
                 return 0
-            left_h = dfs(root.left)
-            right_h = dfs(root.right)
-
-            if abs(left_h - right_h) > 1:
+            left = dfs(root.left)
+            right = dfs(root.right)
+            if abs(left - right) > 1:
                 return -1
-            if left_h == -1 or right_h == -1:
+            if left == -1 or right == -1:
                 return -1
-            return max(left_h, right_h) + 1
+            return 1 + max(left,right)
         return dfs(root) != -1
