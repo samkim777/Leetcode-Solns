@@ -1,16 +1,25 @@
-# Last updated: 4/18/2025, 9:57:55 PM
+# Last updated: 4/26/2025, 10:56:09 PM
 class Solution:
     def subsets(self, nums: List[int]) -> List[List[int]]:
+        # Given array nums of unique elements, return all possible subsets
+        # soln set must not contain duplicates
+        # ex) given nums = [1,2,3]
+        # return [[], [1], [2], [1,2]]...
+        # Decision tree: Include 1 or not include 1
+        # include 2 or not include 2
+        # include 3 or not include 3
+        # use dfs
         res = []
-        def backtrack(i, subset):
-            # base case
+        def dfs(i, cur):
+            # base case:
             if i >= len(nums):
-                res.append(subset.copy())
+                res.append(cur.copy()) # copy to avoid messing with current array
                 return
-            subset.append(nums[i])
-            backtrack(i+1, subset) # Continue on
+            # decision to add
+            cur.append(nums[i])
+            dfs(i+1, cur)
 
-            subset.pop() # [1,2,3] -> [1,2] Consider options where we don't include
-            backtrack(i+1, subset)
-        backtrack(0, [])
+            cur.pop()
+            dfs(i+1, cur)
+        dfs(0,[])
         return res
