@@ -1,26 +1,27 @@
-# Last updated: 4/20/2025, 10:30:42 PM
+# Last updated: 4/27/2025, 10:38:51 PM
 class Solution:
     def combinationSum2(self, candidates: List[int], target: int) -> List[List[int]]:
-        # riiiight you have to sort
+        # To properly construct the combination sum
+        # we need to handle duplicate values in the array before
+        # we construct the decision tree
+        # We do so by sorting the array
         candidates.sort()
         res = []
-        cur = []
-        def backtrack(i,curSum):
-            # base cases
-            if target == curSum:
+        # [1,1,2,5,6,7,10]
+        def backtrack(i,cur, curVal):
+            if target == curVal:
                 res.append(cur.copy())
                 return
-            if i >= len(candidates) or target < curSum:
+            if i >= len(candidates) or target < curVal:
                 return
-
+            # Include decision
             cur.append(candidates[i])
-            backtrack(i+1, curSum + candidates[i])
-
-            # No duplicates are allowed
+            backtrack(i + 1, cur, curVal + candidates[i])
+            # Decision to not include
             cur.pop()
-            backIndex = i + 1
-            while backIndex < len(candidates) and candidates[i] == candidates[backIndex]:
-                backIndex += 1
-            backtrack(backIndex ,curSum)
-        backtrack(0,0)
+            index = i + 1
+            while index < len(candidates) and candidates[i] == candidates[index]:
+                index += 1
+            backtrack(index,cur, curVal)
+        backtrack(0,[],0)
         return res
