@@ -1,22 +1,20 @@
-# Last updated: 4/18/2025, 10:01:47 PM
+# Last updated: 4/28/2025, 9:42:27 PM
 class Solution:
     def combinationSum(self, candidates: List[int], target: int) -> List[List[int]]:
         res = []
-        cur = []
-        def backtrack(i, curSum):
-            # base case:
-            # if i >= len(candidates), no feasible soln
+        def backtrack(i,cur,curSum):
+            if target == curSum:
+                res.append(cur.copy()) # shallow copy to not mess with cur array being passed in
+                return
             if i >= len(candidates) or curSum > target:
                 return
-            if curSum == target:
-                res.append(cur.copy())
-                return
-            # Add cur index number and continue
+            
+            # choose to add
             cur.append(candidates[i])
-            backtrack(i, curSum + candidates[i])
+            backtrack(i, cur,curSum + candidates[i])
 
-            # Ah shiet we fked up, let's backtrack and pop the value
+            # Remove and backtrack
             cur.pop()
-            backtrack(i+1, curSum) # this will go up and calculate cursum
-        backtrack(0,0)
+            backtrack(i+1, cur, curSum)
+        backtrack(0,[],0)
         return res
