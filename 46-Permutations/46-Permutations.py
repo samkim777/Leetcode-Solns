@@ -1,11 +1,22 @@
-# Last updated: 4/29/2025, 11:39:20 PM
+# Last updated: 4/29/2025, 11:52:09 PM
 class Solution:
     def permute(self, nums: List[int]) -> List[List[int]]:
         # Given array of distinct integers return all possible permutations
         # [1,2,3] --> [1,2,3], [1,3,2]...
-        # Can backtrack
-        # decision tree to include element 0, not include
-        # include element 1, not include... so on and so forth
+        # In essence, [1,2,3], then [1,2] then [1] then [1,3]...
+        # backtrack([])
+        # backtrack([1])
+        # backtrack([1,2])
+        # backtrack([1,2])
+        # backtrack([1,2,3]) # return and save
+        # backtrack([1,2])
+        # backtrack([1]) # loop index at 3 so we do that
+        # backtrack([1,3]) # recurse
+        # backtrack([1,3,2])
+        # backtrack([1,3])
+        # backtrack([1])
+        # backtrack([])
+        # backtrack([2])... cont
         res = []
         def backtrack(cur):
             # base case, length of cur == length of nums
