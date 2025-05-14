@@ -1,33 +1,31 @@
-# Last updated: 5/12/2025, 11:45:55 PM
+# Last updated: 5/13/2025, 11:26:40 PM
 class Solution:
     def exist(self, board: List[List[str]], word: str) -> bool:
-        # Edge case: word length > board length
-        # won't have to worry about floats, ints, special characters, etc
-        # dfs approach to search sequential cells
-        # if we reach index length of word, then True
-        # else False
-        # Recursive steps: Search top, left, right, bottom 
-        # if current character is same as word's character at index
-        # add to our cur string and continue else skip
-        Result = False
-        row,col = len(board), len(board[0])
-        def dfs(r,c, index):
-            if index == len(word):
+        # matrix traversal using dfs
+        # if the current grid character is inside our word
+        # then we will dfs from there after having marked it as visited
+        # otherwise, skip
+        # Time complexity O(m*n*4^n) where n is length of word
+        # space complexity: O(m*n)
+        rows,cols = len(board), len(board[0])
+        def dfs(r,c,i):
+            # base cases
+            if i == len(word):
                 return True
-            if r < 0 or r >= row or c < 0 or c >= col or board[r][c] != word[index]:
+            if r < 0 or r >= rows or c < 0 or c >= cols or word[i] != board[r][c]:
                 return False
-            
+            # Visited and inside word
             tmp = board[r][c]
             board[r][c] = "#"
-            res = dfs(r+1,c,index+1) or dfs(r-1, c, index+1) or dfs(r, c+1, index+1) or dfs(r,c-1, index+1)
-
+            # Now we'll have to search the four directions
+            res = dfs(r+1,c,i+1) or dfs(r-1,c,i+1) or dfs(r, c+1, i+1) or dfs(r,c-1,i+1)
             board[r][c] = tmp
             return res
-
-        if len(word) > row*col:
+        
+        if len(word) > rows * cols:
             return False
-        for r in range(row):
-            for c in range(col):
+        for r in range(rows):
+            for c in range(cols):
                 if dfs(r,c,0):
                     return True
         return False
