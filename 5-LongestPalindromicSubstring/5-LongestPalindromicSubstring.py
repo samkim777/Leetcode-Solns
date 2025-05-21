@@ -1,6 +1,7 @@
-# Last updated: 5/14/2025, 10:06:04 PM
+# Last updated: 5/20/2025, 11:14:08 PM
 class Solution:
     def longestPalindrome(self, s: str) -> str:
+        # Check from forward to behind
         if len(s) == 1:
             return s
         longest = s[0]
