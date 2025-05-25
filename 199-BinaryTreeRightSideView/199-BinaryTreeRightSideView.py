@@ -1,4 +1,4 @@
-# Last updated: 3/29/2025, 11:01:34 PM
+# Last updated: 5/24/2025, 10:53:20 PM
 # Definition for a binary tree node.
 # class TreeNode:
 #     def __init__(self, val=0, left=None, right=None):
@@ -7,24 +7,24 @@
 #         self.right = right
 class Solution:
     def rightSideView(self, root: Optional[TreeNode]) -> List[int]:
-        # In simple terms, return the right most node val at each level
-        # ooooh level similar to what I solved yesterday maybe
-        # seems like we can use dfs for this
-        # per level, add right most node val
-        # Time complexity of O(h) on average where h is height of tree
-        # worst case O(n) same for space
+        # use bfs to traverse through the binary tree
+        # O(n) time and space complexity
+        if not root:
+            return []
         res = []
-        def dfs(root,level):
-            # base case, if no node, return None
-            if not root:
-                return None
-            # At each "level", add right most node val
-            # maybe we can use the index of the int as "level"
-            # so value at index 1 is level 1 right most value
-            # and if already exists, continue traversing
-            if level == len(res): # level 0, item = 0, we can add
-                res.append(root.val)
-            dfs(root.right, level + 1)
-            dfs(root.left, level + 1)
-        dfs(root,0)
+        queue = deque([root])
+
+        while queue:
+            level = len(queue)
+
+            for i in range(level):
+                cur = queue.popleft()
+
+                if i == level - 1: # visited all the nodes in this level
+                    res.append(cur.val)
+                
+                if cur.left:
+                    queue.append(cur.left)
+                if cur.right:
+                    queue.append(cur.right)
         return res
