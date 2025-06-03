@@ -1,4 +1,4 @@
-# Last updated: 5/25/2025, 10:50:13 PM
+# Last updated: 6/2/2025, 11:18:59 PM
 # Definition for a binary tree node.
 # class TreeNode:
 #     def __init__(self, val=0, left=None, right=None):
@@ -7,21 +7,22 @@
 #         self.right = right
 class Solution:
     def levelOrder(self, root: Optional[TreeNode]) -> List[List[int]]:
+        if not root:
+            return []
         res = []
         queue = deque([root])
 
-        if not root:
-            return []
-
         while queue:
+            cur = []
             level = len(queue)
-            curr = []
-            for i in range(level):
-                cur = queue.popleft()
-                curr.append(cur.val)
-                if cur.left:
-                    queue.append(cur.left)
-                if cur.right:
-                    queue.append(cur.right)
-            res.append(curr)
+
+            for _ in range(level):
+                curr = queue.popleft()
+                cur.append(curr.val)
+
+                if curr.left:
+                    queue.append(curr.left)
+                if curr.right:
+                    queue.append(curr.right)
+            res.append(cur)
         return res
