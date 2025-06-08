@@ -1,4 +1,4 @@
-# Last updated: 5/27/2025, 11:40:24 PM
+# Last updated: 6/7/2025, 10:08:09 PM
 # Definition for a binary tree node.
 # class TreeNode:
 #     def __init__(self, val=0, left=None, right=None):
@@ -9,24 +9,24 @@ class Solution:
     def zigzagLevelOrder(self, root: Optional[TreeNode]) -> List[List[int]]:
         if not root:
             return []
-        res = []
+        ltr = True
         queue = deque([root])
-        bLeftToRight = True
-        while queue:
-            level = len(queue)
-            cur = deque()
-            for _ in range(level):
-                curr = queue.popleft()
+        res = []
 
-                if bLeftToRight:
-                    cur.appendleft(curr.val)
-                else:
-                    cur.append(curr.val)
-                
-                if curr.right:
-                    queue.append(curr.right)
+        while queue:
+            lvl = len(queue)
+            cur = []
+
+            for _ in range(lvl):
+                curr = queue.popleft()
+                cur.append(curr.val)
                 if curr.left:
                     queue.append(curr.left)
-            res.append(list(cur))
-            bLeftToRight = not bLeftToRight
+                if curr.right:
+                    queue.append(curr.right)
+            if not ltr:
+                cur.reverse()
+            ltr = not ltr
+            res.append(cur)
         return res
+                
