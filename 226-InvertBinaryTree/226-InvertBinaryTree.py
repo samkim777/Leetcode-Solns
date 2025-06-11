@@ -1,4 +1,4 @@
-# Last updated: 4/22/2025, 10:39:31 PM
+# Last updated: 6/10/2025, 8:57:31 PM
 # Definition for a binary tree node.
 # class TreeNode:
 #     def __init__(self, val=0, left=None, right=None):
@@ -7,15 +7,14 @@
 #         self.right = right
 class Solution:
     def invertTree(self, root: Optional[TreeNode]) -> Optional[TreeNode]:
-        # left becomes right, right becomes left
+        # use dfs
         def dfs(root):
             if not root:
-                return None
-            tmp = root.left
-            root.left = root.right
-            root.right = tmp
+                return
+            tmp = root.right
+            root.right = root.left
+            root.left = tmp
             dfs(root.left)
             dfs(root.right)
-            return root
         dfs(root)
         return root
