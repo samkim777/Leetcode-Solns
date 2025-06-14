@@ -1,15 +1,15 @@
-# Last updated: 6/12/2025, 10:07:45 PM
+# Last updated: 6/13/2025, 10:04:40 PM
 class Solution:
     def orangesRotting(self, grid: List[List[int]]) -> int:
         if not grid:
             return -1
-        queue = deque()
-        directions = [(1,0),(-1,0),(0,1),(0,-1)]
+        directions = [(1,0), (-1,0), (0,-1), (0,1)]
         rows,cols = len(grid), len(grid[0])
-        minutes = 0
         fresh_oranges = 0
-
-        # Find the rotten orange positions
+        time = 0
+        queue = deque()
+        
+        # First find position of rotten oranges
         for r in range(rows):
             for c in range(cols):
                 if grid[r][c] == 2:
@@ -18,20 +18,22 @@ class Solution:
                     fresh_oranges += 1
         
         while queue and fresh_oranges > 0:
-            # Each iteration increments time by 1
-            minutes += 1
+            time += 1
             level_size = len(queue)
 
+            # Check the 4 directions from currently rotten oranges
             for _ in range(level_size):
-                r,c = queue.popleft()
-                for dr, dc in directions:
-                    curRow = dr + r
-                    curCol = dc + c
+                row, col = queue.popleft()
 
-                    # Check condition
+                for dr, dc in directions:
+                    curRow = row + dr
+                    curCol = col + dc
+
+                    # Check within bounds and fresh
+                    # don't need visited set because we are marking the grid as we traverse
                     if 0 <= curRow < rows and 0 <= curCol < cols and grid[curRow][curCol] == 1:
-                        queue.append((curRow,curCol))
                         grid[curRow][curCol] = 2
                         fresh_oranges -= 1
-        return minutes if fresh_oranges == 0 else -1
+                        queue.append((curRow,curCol))
+        return time if fresh_oranges == 0 else -1
 
