@@ -1,4 +1,4 @@
-# Last updated: 6/13/2025, 10:04:40 PM
+# Last updated: 6/17/2025, 10:30:30 PM
 class Solution:
     def orangesRotting(self, grid: List[List[int]]) -> int:
         if not grid:
