@@ -1,34 +1,34 @@
-# Last updated: 6/19/2025, 10:15:48 PM
+# Last updated: 6/20/2025, 10:36:28 PM
 class Solution:
     def numBusesToDestination(self, routes: List[List[int]], source: int, target: int) -> int:
         if source == target:
             return 0
-        # create adjacency list
-        bus_stops = defaultdict(list)
-        for index, route in enumerate(routes):
+        
+        stop_to_routes = defaultdict(set)
+        for i, route in enumerate(routes):
             for stop in route:
-                bus_stops[stop].append(index) # {route1: index of route array that contains route 1, 
-            # route2: index of route array that contains route 2...}
-
-        # Edge case for when our source or target is not inside any routes
-        if source not in bus_stops or target not in bus_stops:
-            return -1
+                stop_to_routes[stop].add(i)
+        
+        visited_routes = set()
+        visited_stops = set([source])
         queue = deque()
-        visited = set()
 
-        # Start off queue from source --> We know source is in our routes
-        for bus in bus_stops[source]:
-            queue.append((bus,1))
-            visited.add(bus)
-
+        for route in stop_to_routes[source]:
+            queue.append((route, 1))
+            visited_routes.add(route)
+        
         while queue:
-            curidx, curBusNums = queue.popleft() # ex: 1, 3: index of route 1, 3 buses req
-
-            for route in routes[curidx]:
-                if route == target:
-                    return curBusNums
-                for connectedBus in bus_stops[route]:
-                    if connectedBus not in visited:
-                        queue.append((connectedBus, curBusNums + 1))
-                        visited.add(connectedBus)
+            current_route, buses_taken = queue.popleft()
+            
+            if target in routes[current_route]:
+                return buses_taken
+            
+            for stop in routes[current_route]:
+                if stop not in visited_stops:
+                    visited_stops.add(stop)
+                    for next_route in stop_to_routes[stop]:
+                        if next_route not in visited_routes:
+                            queue.append((next_route, buses_taken + 1))
+                            visited_routes.add(next_route)
+        
         return -1
