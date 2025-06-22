@@ -1,22 +1,25 @@
-# Last updated: 5/29/2025, 10:05:12 PM
+# Last updated: 6/21/2025, 10:35:50 PM
 class Solution:
     def combinationSum(self, candidates: List[int], target: int) -> List[List[int]]:
+        # backtracking
+        # Time complexity: O(??)
+        # space complexity: O(??)
         res = []
-        def backtrack(i,curSum,cur):
-            if target == curSum:
-                res.append(cur.copy())
+        def backtrack(i,curVal,curArr):
+            # Base case
+            if i >= len(candidates) or target < curVal:
+                return
+            # Found 
+            if target == curVal:
+                res.append(curArr.copy())
                 return
             
-            if target < curSum or i >= len(candidates):
-                return
-            
-            cur.append(candidates[i])
-            backtrack(i, curSum + candidates[i], cur)
+            # Decision to add
+            curArr.append(candidates[i])
+            backtrack(i, curVal + candidates[i], curArr)
 
-            cur.pop()
-            while i > 0 and candidates[i] == candidates[i-1]:
-                i += 1
-            backtrack(i+1, curSum, cur)
-
+            # Decision to not add
+            curArr.pop()
+            backtrack(i+1, curVal, curArr)
         backtrack(0,0,[])
         return res
