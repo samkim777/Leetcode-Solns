@@ -1,4 +1,4 @@
-# Last updated: 6/22/2025, 10:43:26 PM
+# Last updated: 6/22/2025, 10:45:43 PM
 class Solution:
     def combinationSum2(self, candidates: List[int], target: int) -> List[List[int]]:
         res = []
@@ -11,7 +11,7 @@ class Solution:
             if target == curVal:
                 res.append(curArr.copy())
                 return
-            # Base case
+            # Base case: Could cause issues if this and Foiund case order is different
             if i >= len(candidates) or target < curVal:
                 return
             # Decision to add
