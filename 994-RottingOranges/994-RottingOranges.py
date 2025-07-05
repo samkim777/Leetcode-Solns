@@ -1,27 +1,32 @@
-# Last updated: 6/17/2025, 10:31:04 PM
+# Last updated: 7/5/2025, 7:17:05 AM
 class Solution:
     def orangesRotting(self, grid: List[List[int]]) -> int:
-        minutes = 0
-        oranges = 0
-        rows, cols = len(grid), len(grid[0])
-        directions = [(1,0), (-1,0), (0,1), (0,-1)]
+        if not grid:
+            return -1
         queue = deque()
-
+        rows, cols = len(grid), len(grid[0])
+        directions = [(1,0),(-1,0),(0,1), (0,-1)]
+        visited = set()
+        oranges = 0
+        time = 0
+        
         for r in range(rows):
             for c in range(cols):
-                if grid[r][c] == 1: # Fresh
+                if grid[r][c] == 1:
                     oranges += 1
                 elif grid[r][c] == 2:
                     queue.append((r,c))
-        
+                    visited.add((r,c))
+
         while queue and oranges:
-            minutes += 1
+            time += 1
             for _ in range(len(queue)):
-                row, col = queue.popleft()
+                row, col = queue.popleft() # rotten orange
                 for dr, dc in directions:
-                    curRow, curCol = row + dr, col + dc
-                    if 0 <= curRow < rows and 0 <= curCol < cols and grid[curRow][curCol] == 1:
-                        queue.append((curRow,curCol))
-                        grid[curRow][curCol] = 2
+                    if row + dr < rows and row + dr >= 0 and col + dc < cols and col + dc >= 0 and grid[row+dr][col+dc] == 1:
+                        grid[row+dr][col+dc] = 2
                         oranges -= 1
-        return minutes if oranges == 0 else -1
+                        queue.append((row+dr,col+dc))
+                        visited.add((row+dr,col+dc))
+        return time if oranges == 0 else -1
+        
