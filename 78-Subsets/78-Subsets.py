@@ -1,21 +1,18 @@
-# Last updated: 7/31/2025, 10:10:34 PM
+# Last updated: 8/6/2025, 10:41:16 PM
 class Solution:
     def subsets(self, nums: List[int]) -> List[List[int]]:
-        # 2 decisions to make: To add the current number or to skip
-        # 2^n time complexity
-        # O(n) space complexity because worst case we have all the numbers added
-        # in the current array
         res = []
-        def backtrack(i,curArr):
+        def backtrack(i,cur):
             if i >= len(nums):
-                res.append(curArr.copy()) # Return shallow copy so as to not mess with recursive variable call
+                res.append(cur.copy())
                 return
-            # decision to add
-            curArr.append(nums[i])
-            backtrack(i+1,curArr)
+            
+            # Decision to add
+            cur.append(nums[i])
+            backtrack(i+1,cur)
 
-            # decoision to skip
-            curArr.pop() # Pops right most element
-            backtrack(i+1,curArr)
+            # Not add
+            cur.pop()
+            backtrack(i+1, cur)
         backtrack(0,[])
         return res
