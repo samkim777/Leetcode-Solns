@@ -1,32 +1,32 @@
-# Last updated: 7/5/2025, 7:17:05 AM
+# Last updated: 10/1/2025, 12:42:24 AM
 class Solution:
     def orangesRotting(self, grid: List[List[int]]) -> int:
-        if not grid:
-            return -1
         queue = deque()
+        directions = [[1,0],[-1,0],[0,1],[0,-1]]
         rows, cols = len(grid), len(grid[0])
-        directions = [(1,0),(-1,0),(0,1), (0,-1)]
-        visited = set()
-        oranges = 0
+        fresh = 0
         time = 0
-        
-        for r in range(rows):
-            for c in range(cols):
-                if grid[r][c] == 1:
-                    oranges += 1
-                elif grid[r][c] == 2:
-                    queue.append((r,c))
-                    visited.add((r,c))
 
-        while queue and oranges:
+        for row in range(rows):
+            for col in range(cols):
+                if grid[row][col] == 1:
+                    fresh += 1
+                elif grid[row][col] == 2:
+                    queue.append([row,col])
+        # we have number of fresh oranges, rotten oranges
+        # we also have a queue with rotten orange location
+        # we can then traverse from there on our grid and per tick
+        # change the fresh to rotten
+
+        while fresh > 0 and queue:
+            for i in range(len(queue)):
+                row, col = queue.popleft() # rotten orange coords
+                for dr,dc in directions: # traverse the grid 4 dirs
+                    # if fresh orange add to queue
+                    if row+dr < 0 or row+dr >= rows or col+dc < 0 or col+dc >= cols or grid[row+dr][col+dc] != 1:
+                        continue
+                    queue.append([row+dr,col+dc])
+                    grid[row+dr][col+dc] = 2
+                    fresh -= 1
             time += 1
-            for _ in range(len(queue)):
-                row, col = queue.popleft() # rotten orange
-                for dr, dc in directions:
-                    if row + dr < rows and row + dr >= 0 and col + dc < cols and col + dc >= 0 and grid[row+dr][col+dc] == 1:
-                        grid[row+dr][col+dc] = 2
-                        oranges -= 1
-                        queue.append((row+dr,col+dc))
-                        visited.add((row+dr,col+dc))
-        return time if oranges == 0 else -1
-        
+        return time if fresh == 0 else -1
