@@ -1,25 +1,23 @@
-# Last updated: 10/6/2025, 4:57:55 PM
+# Last updated: 10/6/2025, 5:31:32 PM
 class Solution:
     def numIslands(self, grid: List[List[str]]) -> int:
-        # Time complexity : O(m*n)
-        # Space complexity: O(m*n)
-        queue = deque()
-        islands = 0
         rows, cols = len(grid), len(grid[0])
-        directions = [[1,0],[-1,0],[0,1],[0,-1]]
+        islands = 0
 
-        for row in range(rows):
-            for col in range(cols):
-                if grid[row][col] == "1":
-                    queue.append((row,col))
-                    grid[row][col] = "0"
-                    while queue:
-                        r,c = queue.popleft()
-                        for dr,dc in directions:
-                            curRow,curCol = r+dr,c+dc
-                            if 0 <= curRow < rows and 0 <= curCol < cols and grid[curRow][curCol] == "1":
-                                queue.append([curRow,curCol])
-                                grid[curRow][curCol] = "0"
-                    islands += 1
-        return islands
+        def dfs(i,j):
+            # Base case
+            if i < 0 or i >= rows or j < 0 or j >= cols or grid[i][j] == '0':
+                return
             
+            grid[i][j] = '0'
+            dfs(i,j+1)
+            dfs(i,j-1)
+            dfs(i+1,j)
+            dfs(i-1,j)
+        
+        for r in range(rows):
+            for c in range(cols):
+                if grid[r][c] == '1':
+                    islands += 1
+                    dfs(r,c)
+        return islands
